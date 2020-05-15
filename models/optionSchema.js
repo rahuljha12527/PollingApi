@@ -20,6 +20,6 @@ const optionS=new mongoose.Schema({
     
 });
 
-const optionM=mongoose.model('optionM',optionM);
+const optionM=mongoose.model('optionM',optionS);
 
 module.exports=optionM
