@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 const questionS=new mongoose.Schema({
-    name:{
+    title:{
         type:String,
         required:true,
         unique:true
@@ -12,6 +12,8 @@ const questionS=new mongoose.Schema({
             ref:'optionSchema'
         }
     ]
+},{
+    timestamps:true
 });
 
 const questionM=mongoose.model('questionM',questionS);
