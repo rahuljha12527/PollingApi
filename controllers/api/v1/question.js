@@ -43,7 +43,8 @@ module.exports.deleteQuestion=async function(req,res){
 module.exports.viewQuestion=async function(req,res){
   try{
      const id=req.params.id;
-   let question=await questionM.find({_id:id}).sort('-createdAt').populate('options').select('title._id');
+     console.log(id);
+   let question=await questionM.find({"_id":id}).sort('-createdAt');
    console.log(question);
    if(question.length>0){
        res.status(200).json({questionM:question});
@@ -57,10 +58,7 @@ module.exports.viewQuestion=async function(req,res){
 }catch(err){
      console.log('Error in getting a question',err);
      res.status(500).json({
-        message:"Error in getting a question",
-        error:err
-        
-        
+        message:"Error in getting a question"
      });
   }
 
@@ -69,7 +67,8 @@ module.exports.viewQuestion=async function(req,res){
 
 module.exports.addOptionsToQuestion=async function(req,res){
    try{
-      let ques=await questionM.findById(req.params.id).populate('options').select('title _id');
+      let ques=await questionM.findById(req.params.id);
+      console.log(ques);
       if(ques){
          let option=await Option.create({
             text:req.body.text,
@@ -91,7 +90,8 @@ module.exports.addOptionsToQuestion=async function(req,res){
       }
    }catch(err){
       return  res.json(500,{
-         message:"Internal Server Error in adding Options"
+         message:"Internal Server Error in adding Options",
+         error:err
       });
    }
 }
